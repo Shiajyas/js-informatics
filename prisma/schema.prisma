@@ -1,0 +1,137 @@
+// Prisma Schema for JS Informatics
+// Provider is configured as sqlite for zero-dependency local development and testing.
+// For PostgreSQL production deployment (e.g. Supabase, Neon, Railway):
+// change provider to "postgresql" and update DATABASE_URL.
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         String    @default("ADMIN")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model ProductCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  sortOrder   Int       @default(0)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  name             String
+  slug             String          @unique
+  brand            String
+  categoryId       String
+  category         ProductCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  shortDescription String
+  description      String
+  specifications   String          // Stored as JSON string
+  availability     String          @default("IN_STOCK") // IN_STOCK, CALL_FOR_PRICE, OUT_OF_STOCK
+  priceDisplay     String          @default("Contact us for pricing")
+  isFeatured       Boolean         @default(false)
+  image            String          @default("/images/cctv-installation.jpg")
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([categoryId])
+  @@index([slug])
+}
+
+model ServiceCategory {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  services    Service[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Service {
+  id               String          @id @default(cuid())
+  title            String
+  slug             String          @unique
+  categoryId       String
+  category         ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  tagline          String
+  shortDescription String
+  fullDescription  String
+  icon             String          @default("ShieldCheck")
+  heroImage        String          @default("/images/cctv-installation.jpg")
+  features         String          // JSON array of strings
+  scopeOfWork      String          // JSON array of strings
+  benefits         String          // JSON array of { title, description }
+  residentialApps  String          // JSON array of strings
+  commercialApps   String          // JSON array of strings
+  faqs             String          // JSON array of { question, answer }
+  isPublished      Boolean         @default(true)
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([categoryId])
+  @@index([slug])
+}
+
+model Enquiry {
+  id               String        @id @default(cuid())
+  referenceNumber  String        @unique // e.g. JSI-ENQ-12345
+  type             String        @default("GENERAL") // GENERAL, QUOTATION, SERVICE_REQUEST
+  customerName     String
+  phone            String
+  email            String?
+  location         String
+  serviceCategory  String?
+  requirementType  String?       @default("RESIDENTIAL") // RESIDENTIAL, COMMERCIAL, OTHER
+  deviceType       String?
+  problemDetails   String?
+  preferredDate    String?
+  message          String
+  status           String        @default("NEW") // NEW, CONTACTED, QUOTATION_SENT, IN_PROGRESS, COMPLETED, CANCELLED
+  notes            EnquiryNote[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([type])
+}
+
+model EnquiryNote {
+  id        String   @id @default(cuid())
+  enquiryId String
+  enquiry   Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  author    String
+  note      String
+  createdAt DateTime @default(now())
+}
+
+model WebsiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  group     String   @default("GENERAL")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

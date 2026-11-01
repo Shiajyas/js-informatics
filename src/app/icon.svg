@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00AEEF" />
+      <stop offset="100%" stop-color="#0077B6" />
+    </linearGradient>
+    <linearGradient id="navyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B2D5B" />
+      <stop offset="100%" stop-color="#061B37" />
+    </linearGradient>
+  </defs>
+
+  <polygon points="50,6 88,27 88,73 50,94 12,73 12,27" fill="#F5F8FC" stroke="#E2E8F0" stroke-width="3" />
+  <line x1="28" y1="20" x2="50" y2="20" stroke="#00AEEF" stroke-width="3" stroke-linecap="round" />
+  <circle cx="28" cy="20" r="4" fill="#00AEEF" />
+  <circle cx="50" cy="20" r="4" fill="#0B2D5B" />
+  <line x1="72" y1="80" x2="50" y2="80" stroke="#00AEEF" stroke-width="3" stroke-linecap="round" />
+  <circle cx="72" cy="80" r="4" fill="#00AEEF" />
+
+  <path d="M 42 32 L 42 62 C 42 69 37 72 31 72 C 26 72 23 68 23 64" 
+        stroke="url(#navyGradient)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <circle cx="42" cy="32" r="5" fill="#00AEEF" />
+
+  <path d="M 68 37 C 68 33 63 31 57 31 C 49 31 46 36 48 43 C 50 50 67 49 68 59 C 69 68 60 73 51 73 C 45 73 39 70 38 65" 
+        stroke="url(#blueGradient)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <circle cx="68" cy="37" r="5" fill="#0B2D5B" />
+  <circle cx="50" cy="51" r="4.5" fill="#00AEEF" />
+</svg>

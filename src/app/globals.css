@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-navy: #0B2D5B;
+  --color-brand-navy-dark: #061B37;
+  --color-brand-blue: #00AEEF;
+  --color-brand-blue-hover: #0095ce;
+  --color-brand-light-blue: #E6F0FA;
+  --color-brand-light-bg: #F5F8FC;
+  --color-brand-charcoal: #1F2937;
+  --color-brand-slate: #64748B;
+  --color-brand-border: #E2E8F0;
+
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFFFF;
+  --foreground: #1F2937;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
+::selection {
+  background-color: #00AEEF;
+  color: #FFFFFF;
+}
+
+/* Custom scrollbars for tables / previews */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F8FC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
